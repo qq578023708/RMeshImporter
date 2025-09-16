@@ -356,6 +356,12 @@ void URMeshImporterFactory::ProcessImportData(URMeshImportData* ImportData, USta
                 {
                     Material->SetTextureParameterValueEditorOnly(FName("BaseColor"),Texture);
                 }
+                else if (j==1)
+                {
+                    // We have some normal maps, but it's not using them. Perhaps we can manually assign normal maps to the materials
+                    Material->SetScalarParameterValueEditorOnly(FName("UseNormal"),1);
+                    Material->SetTextureParameterValueEditorOnly(FName("Normal"),Texture);
+                }
             }
         }
         
