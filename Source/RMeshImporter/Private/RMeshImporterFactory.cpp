@@ -48,7 +48,7 @@ UObject* URMeshImporterFactory::FactoryCreateFile(UClass* InClass, UObject* InPa
 
     // Set import data
     UAssetImportData* ImportDataAsset = NewObject<UAssetImportData>(StaticMesh, TEXT("AssetImportData"));
-    ImportDataAsset->SourceData.SourceFiles.Add(FAssetImportInfo::FSourceFile(Filename)); // 修复这里
+    ImportDataAsset->SourceData.SourceFiles.Add(FAssetImportInfo::FSourceFile(Filename));
     StaticMesh->AssetImportData = ImportDataAsset;
 
     // Build the mesh
@@ -309,7 +309,7 @@ void URMeshImporterFactory::ProcessImportData(URMeshImportData* ImportData, USta
     for (int32 i = 0; i < ImportData->Vertices.Num(); i++)
     {
         VertexIDs[i] = MeshDescription.CreateVertex();
-        Attributes.GetVertexPositions()[VertexIDs[i]] = FVector3f(ImportData->Vertices[i].Position); // 转换为 FVector3f
+        Attributes.GetVertexPositions()[VertexIDs[i]] = FVector3f(ImportData->Vertices[i].Position);
     }
     
     // Create material slots
