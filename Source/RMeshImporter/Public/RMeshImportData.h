@@ -60,9 +60,6 @@ struct FRMeshTriangle
 	UPROPERTY()
 	FVector2D UV2;
 
-	UPROPERTY()
-	FVector Normals[3];
-
 	FRMeshTriangle()
 		: VertexIndex0(0)
 		, VertexIndex1(0)
@@ -70,9 +67,7 @@ struct FRMeshTriangle
 		, MaterialIndex(0)
 		, FaceNormal(FVector::UpVector)
 	{
-		Normals[0] =FVector::ZeroVector;
-		Normals[1] = FVector::ZeroVector;
-		Normals[2] = FVector::ZeroVector;
+		
 	}
 };
 

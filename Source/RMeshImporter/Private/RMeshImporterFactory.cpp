@@ -123,7 +123,10 @@ bool URMeshImporterFactory::ImportRMesh(const FString& Filename, URMeshImportDat
                     if (BaseName.Contains("_lm1")
                         || BaseName.Contains("_lm2")
                         || BaseName.Contains("_lm3")
-                            || BaseName.Contains("_lm4"))
+                            || BaseName.Contains("_lm4")
+                            || BaseName.Contains("_lm5")
+                            || BaseName.Contains("_lm6")
+                            || BaseName.Contains("_lm7"))
                     {
                         continue;
                     }
@@ -198,18 +201,12 @@ bool URMeshImporterFactory::ImportRMesh(const FString& Filename, URMeshImportDat
             FVector U = V1 - V0;
             FVector V = V2 - V0;
             
-            Triangle.FaceNormal = FVector::CrossProduct(U, V).GetSafeNormal();
-    
-      
             Triangle.FaceNormal = FVector(
-                -Triangle.FaceNormal.X, 
-                Triangle.FaceNormal.Z,   
-                Triangle.FaceNormal.Y    
-            ).GetSafeNormal();
-
-            Triangle.Normals[0] = Triangle.FaceNormal;
-            Triangle.Normals[1] = Triangle.FaceNormal;
-            Triangle.Normals[2] = Triangle.FaceNormal;
+                (U.Y * V.Z) - (U.Z * V.Y),
+                (U.Z * V.X) - (U.X * V.Z),
+                (U.X * V.Y) - (U.Y * V.X)
+            );
+            Triangle.FaceNormal = Triangle.FaceNormal.GetSafeNormal();
             
             // Set UVs
             Triangle.UV0 = ImportData->Vertices[Triangle.VertexIndex0].UV;
@@ -284,7 +281,7 @@ bool URMeshImporterFactory::ImportRMesh(const FString& Filename, URMeshImportDat
     
                 
                 Triangle.FaceNormal = FVector(
-                    -Triangle.FaceNormal.X,  
+                    Triangle.FaceNormal.X,  
                     Triangle.FaceNormal.Z,   
                     Triangle.FaceNormal.Y    
                 ).GetSafeNormal();
@@ -412,18 +409,12 @@ void URMeshImporterFactory::ProcessImportData(URMeshImportData* ImportData, USta
             Triangle.UV2,
             Triangle.UV1
         };
-
-        FVector Normals[3] = {
-            Triangle.Normals[0],
-            Triangle.Normals[1],
-            Triangle.Normals[2]
-        };
         
         for (int32 i = 0; i < 3; i++)
         {
             VertexInstanceIDs[i] = MeshDescription.CreateVertexInstance(VertexIDsForTriangle[i]);
             VertexInstanceUVs[VertexInstanceIDs[i]] = FVector2f(UVs[i]); // Convert FVector2D to FVector2f
-            // VertexInstanceNormals[VertexInstanceIDs[i]] = FVector3f(Normals[i]); // Convert FVector to FVector3f
+            VertexInstanceNormals[VertexInstanceIDs[i]] = FVector3f(Triangle.FaceNormal); // Convert FVector to FVector3f
         }
         
         // Create polygon
