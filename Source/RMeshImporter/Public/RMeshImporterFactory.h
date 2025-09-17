@@ -26,6 +26,5 @@ public:
 private:
 	bool ImportRMesh(const FString& Filename, URMeshImportData* ImportData, FFeedbackContext* Warn);
 	void ProcessImportData(URMeshImportData* ImportData, UStaticMesh* StaticMesh, UObject* InParent, FName InName, EObjectFlags Flags);
-	void FixNormals(URMeshImportData* ImportData);
 	bool IgnoreCollision=true;
 };

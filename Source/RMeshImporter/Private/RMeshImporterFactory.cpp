@@ -29,7 +29,7 @@ UObject* URMeshImporterFactory::FactoryCreateFile(UClass* InClass, UObject* InPa
 
     // Create import data object
     URMeshImportData* ImportData = NewObject<URMeshImportData>(GetTransientPackage(), NAME_None, Flags);
-    ImportData->RoomScale = 1.0f; // Adjust as needed
+    ImportData->RoomScale = 0.8f; // Adjust as needed
 
     // Import the RMesh file
     if (!ImportRMesh(Filename, ImportData, Warn))
