@@ -25,5 +25,4 @@ rmesh格式文件是**SCP: Containment Breach**游戏的自定义格式的3D模�
 目前，仅在unreal engine 5.6.1中进行了测试
 
 
-
-![](E:\UEProject\SCPRedAlert\Plugins\RMeshImporter\170655.png)
+![](https://github.com/qq578023708/RMeshImporter/blob/main/170655.png)
